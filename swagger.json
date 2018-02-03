@@ -1,0 +1,153 @@
+{
+  "swagger": "2.0",
+  "host": "",
+  "basePath": "/api",
+  "info": {
+    "title": "Advanced SharePoint Connector",
+    "version": "1.0.0.0",
+    "description": "Advanced SharePoint Connector for PowerApps and Flow",
+    "contact": {
+      "name": "Christian Glessner - Experts Inside",
+      "url": "http://leitwolf.io"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/GetListItems": {
+      "get": {
+        "summary": "Get SharePoint List Items",
+        "description": "Get SharePoint List Items",
+        "operationId": "GetListItems",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "webUrl",
+            "type": "string",
+            "description": "https://tenant.sharepoint.com/sites/target",
+            "x-ms-summary": "SharePoint Site URL",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "listName",
+            "type": "string",
+            "description": "Documents",
+            "x-ms-summary": "List Title",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "description": "$select=Title,Field1;$filter=startswith(Title,'A')",
+            "x-ms-summary": "OData Query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Items",
+            "schema": {
+              "type": "object",
+              "x-ms-dynamic-schema": {
+                "operationId": "GetListItemsSchema",
+                "parameters": {
+                  "webUrl": {
+                    "parameter": "webUrl"
+                  },
+                  "listName": {
+                    "parameter": "listName"
+                  },
+                  "query": {
+                    "parameter": "query"
+                  }
+                },
+                "value-path": "schema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetListItems/Schema": {
+      "get": {
+        "x-ms-visibility": "internal",
+        "summary": "Get SharePoint List Items Json Schema",
+        "description": "Get SharePoint List Items Json Schema",
+        "operationId": "GetListItemsSchema",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "webUrl",
+            "type": "string",
+            "description": "https://tenant.sharepoint.com/sites/target",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "listName",
+            "type": "string",
+            "description": "Documents",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "description": "$select=Title,Field1;$filter=startswith(Title,'A')",
+            "x-ms-summary": "OData Query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Items",
+            "schema": {
+              "type": "object",
+              "x-ms-dynamic-schema": {
+                "operationId": "GetListItems",
+                "parameters": {
+                  "webUrl": {
+                    "parameter": "webUrl"
+                  },
+                  "listName": {
+                    "parameter": "listName"
+                  },
+                  "query": {
+                    "parameter": "query"
+                  },
+                  "limit": {
+                    "parameter": "limit"
+                  }
+                },
+                "value-path": "schema"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/common/oauth2/token"
+    }
+  }
+}
