@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "",
+  "host": "yourhost",
   "basePath": "/api",
   "info": {
     "title": "Advanced SharePoint Connector",
@@ -15,6 +15,51 @@
     "https"
   ],
   "paths": {
+    "/GetSiteGroups": {
+      "get": {
+        "summary": "Get SharePoint Site Groups",
+        "description": "Get SharePoint Site Groups",
+        "operationId": "GetSiteGroups",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "webUrl",
+            "type": "string",
+            "description": "https://tenant.sharepoint.com/sites/target",
+            "x-ms-summary": "SharePoint Site URL",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "groups",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer"
+                  },
+                  "Title": {
+                    "type": "string"
+                  },
+                  "Description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/GetListItems": {
       "get": {
         "summary": "Get SharePoint List Items",
