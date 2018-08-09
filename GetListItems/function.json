@@ -6,7 +6,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "GetListItems/{*schema}",
+      "route": "GetListItems/{schema?}",
       "methods": [
         "get"
       ]
