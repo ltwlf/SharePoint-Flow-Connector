@@ -30,7 +30,7 @@ module.exports = function (context, req) {
     if(webUrl == null || listName == null){
         context.res = {
             status: 400,
-            body: "Query parameters webUrl and listTitle are required."
+            body: "Query parameters webUrl and listName are required."
         };
         context.done();
         return;

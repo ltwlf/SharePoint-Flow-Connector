@@ -15,6 +15,70 @@
     "https"
   ],
   "paths": {
+    "/UpdateListItem": {
+      "patch": {
+        "summary": "Update a SharePoint List Item",
+        "description": "Update a SharePoint List Item",
+        "operationId": "UpdateListItem",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "webUrl",
+            "type": "string",
+            "description": "https://tenant.sharepoint.com/sites/target",
+            "x-ms-summary": "SharePoint Site URL",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "listName",
+            "type": "string",
+            "description": "List Title",
+            "x-ms-summary": "List Title",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "description": "Item ID",
+            "x-ms-summary": "List Item ID",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "JSON String",
+            "schema": { 
+              "type": "string"
+            },
+            "x-ms-summary": "JSON String",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Update successful"
+          },
+          "default": {
+            "description": "Error",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+        }
+      }
+    },
     "/GetSiteGroups": {
       "get": {
         "summary": "Get SharePoint Site Groups",
@@ -45,7 +109,8 @@
                 "type": "object",
                 "properties": {
                   "Id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "Title": {
                     "type": "string"
@@ -153,7 +218,7 @@
             "in": "query",
             "name": "query",
             "type": "string",
-            "description": "$select=Title,Field1;$filter=startswith(Title,'A')",
+            "description": "$select=Title,Field1&$filter=startswith(Title,'A')",
             "x-ms-summary": "OData Query",
             "required": false
           }
