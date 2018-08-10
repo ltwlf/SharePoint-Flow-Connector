@@ -38,19 +38,20 @@ module.exports = function (context, req) {
 
     var regex = new RegExp(/"@user\(([\w\W]+?)\)"?/, "g");
     
-    var body = JSON.stringify(req.body);
+    var body = typeof req.body == 'string' ? req.body : JSON.stringify(req.body);
     var results = body.match(regex);
 
     var regex2 = new RegExp(/[a-zA-Z\d@.]+/, "g");
 
     var promises = [];
-    results.forEach((x)=> {
-        
-        promises.push(resolveUser(webUrl, x.match(regex2)[1], token).then((id)=>{
-            body = body.replace(x, id);
-        }));
-    });
-
+    if(results)
+    {
+        results.forEach((x)=> {
+            promises.push(resolveUser(webUrl, x.match(regex2)[1], token).then((id)=>{
+                body = body.replace(x, id);
+            }));
+        });
+    }   
     Promise.all(promises).then((a)=>{
 
         var restUrl = webUrl + "/_api/web/Lists/GetByTitle('" + listName + "')/GetItemById(" + id + ")";
