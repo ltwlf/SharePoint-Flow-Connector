@@ -10,6 +10,7 @@
   "license": "GPLv3",
   "dependencies": {
     "json-schema-generator": "^2.0.6",
+    "promise": "^8.0.1",
     "request": "^2.83.0"
   }
 }
