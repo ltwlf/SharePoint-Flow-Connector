@@ -41,7 +41,7 @@ module.exports = function (context, req) {
     var body = typeof req.body == 'string' ? req.body : JSON.stringify(req.body);
     var results = body.match(regex);
 
-    var regex2 = new RegExp(/[a-zA-Z-\d@.]+/, "g");
+    var regex2 = new RegExp(/[a-zA-Z-_\d@.]+/, "g");
 
     var promises = [];
     if (results) {
